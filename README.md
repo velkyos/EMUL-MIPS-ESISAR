@@ -1,5 +1,3 @@
-Made by Adrien Louvrier, Sophie Dreano and Benjamin Robert
-
 ---
 title: CS351 Esisar -- MIPS Emulator User Documentation
 subtitle: Step 2, 2021-2022 
@@ -9,6 +7,8 @@ geometry: margin=1.5cm
 fontsize: 12pt
 lang: en
 ---
+
+Made by Adrien Louvrier, Sophie Dreano and Benjamin Robert
 
 <div style="text-align: center;">
 
