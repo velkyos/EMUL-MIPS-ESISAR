@@ -150,12 +150,17 @@ void decompile_instruction(char ** s_output, int operator,int* p_operands){
 	char s_operator[15];
 	char s_operands[3][15];
 
+	char *temp1 = NULL;
+	char *temp2 = NULL;
+
 	while (instructionOppCode[i] != operator && i < NBR_INSTRUCTION)
 	{
 		i++;
 	}
 	i = (operator == I_NOP) ? i + 3 : i;
+
 	sprintf(s_operator, "%s", instructionName[i]);
+	
 	for (int y = 0; y < 3; y++)
 	{
 		order = instructionOrder[i][y];
@@ -175,10 +180,12 @@ void decompile_instruction(char ** s_output, int operator,int* p_operands){
 			}
 		}
 	}
-	string_concat(s_output, s_operator, s_operands[0]);
-	string_concat(s_output, *s_output, s_operands[1]);
-	string_concat(s_output, *s_output, s_operands[2]);
-
+	string_concat(&temp1, s_operator, s_operands[0]);
+	string_concat(&temp2, s_operands[1], s_operands[2]);
+	string_concat(s_output, temp1, temp2);
+	
+	free(temp1);
+	free(temp2);
 }
 
 int compile_instruction(char *p_instruction, int *p_res){

@@ -308,8 +308,6 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 		PC_increased = 0;
 	}
 
-	
-
 	return;
 }
 

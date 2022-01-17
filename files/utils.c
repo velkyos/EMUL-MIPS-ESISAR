@@ -26,7 +26,6 @@ void string_concat(char** output, char *s1, char *s2){
 	int size1 = string_size(s1);
 	int size2 = string_size(s2);
 	int i;
-
 	*output = (char *)malloc(sizeof(char) * (size1 + size2 + 1));
 	
 	for (i = 0; i < size1; i++)

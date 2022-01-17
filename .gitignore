@@ -58,3 +58,4 @@ dkms.conf
 *.state
 *.hexa
 *.state
+emul-mips
