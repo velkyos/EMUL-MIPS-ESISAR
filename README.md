@@ -1,3 +1,5 @@
+Made by Adrien Louvrier, Sophie Dreano and Benjamin Robert
+
 ---
 title: CS351 Esisar -- MIPS Emulator User Documentation
 subtitle: Step 2, 2021-2022 
