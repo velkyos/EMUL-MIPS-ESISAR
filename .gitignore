@@ -57,3 +57,4 @@ dkms.conf
 *.hex
 *.state
 *.hexa
+*.state
