@@ -1,12 +1,10 @@
 #include "assembly_execution.h"
 
-
+/* Execute the instruction {instruction} and modified {p_memory} and {p_registers} */
 void execute_instruction(int instruction,int needConfirm ,MemoryBlocks *p_memory, Registers *p_registers);
 
+/* Get oppcode {p_operator} and operands {p_operands} from the instruction {instruction}. */
 void get_instruction_values(int instruction, unsigned int* p_operator, int* p_operands);
-
-
-
 
 void run_in_interative(){
 	int current_pc;
@@ -14,32 +12,40 @@ void run_in_interative(){
 	MemoryBlocks memory = NULL;
 
 	char currentInstruction[BUFFER_SIZE];
-	int currentInstructionInt;
+	int currentInstructionInt; /* The instruction integer after being compiled*/
 	int error;
 
 	printf("Launch of the interactive mode ...\n");
 
+	/* 1 - Initialization of the registers */
 	init_registers(registers);
 
 	while ( string_compare(currentInstruction, "EXIT",0) != 1)
 	{
+		
 		current_pc = read_from_register(registers, R_PC);
 
+		/* 2 - We ask for the instruction at this line (PC / 4)*/
 		printf("\nInstruction n°%d : ", current_pc / 4);
 
 		fgets( currentInstruction, BUFFER_SIZE, stdin);
 
+		/* 3 - We compile the line and save the error code */
 		error = compile_line(currentInstruction, &currentInstructionInt);
 
 		handle_errors(error, -1);
 
 		if (error == 0)
 		{
+			/* 4 - Execution of the instruction */
 			execute_instruction( currentInstructionInt,0, &memory, registers);
+
+			/* 4.5 - Show the value of the processor into the console */
 			print_processor_to_stream(stdout, &memory, registers);
 		}
 	}
 	
+	/* 5 - Free all variables */
 	free_memory(&memory,0);
 	free(registers);
 
@@ -47,7 +53,6 @@ void run_in_interative(){
 }
 
 void run_a_file(char *p_pathIn,char *p_pathHexOut,char *p_pathFinOut){
-
 	int *p_instructions = NULL;
 	int instructionNbr;
 	int current_pc;
@@ -56,25 +61,29 @@ void run_a_file(char *p_pathIn,char *p_pathHexOut,char *p_pathFinOut){
 	Registers *registers = malloc(sizeof(Registers));
 	MemoryBlocks memory = NULL;
 
-	
+	/* 1 - Compile the file */
 	instructionNbr = compile_file(p_pathIn,p_pathHexOut);
 	
 	p_instructions = malloc(sizeof(int) * instructionNbr);
 
+	/* 2 - Load all instruction in 'memory' */
 	load_compiled_file(p_pathHexOut, p_instructions, needConfirm);
 	
 	printf("Launch of the non-interactive mode ...\n");
 
+	/* 3 - Initialization of the registers */
 	init_registers(registers);
 
 	current_pc = read_from_register(registers, R_PC);
 
-	while( (current_pc / 4) < instructionNbr){
+	while( (current_pc / 4) < instructionNbr){ 
 
+		/* 4 - Execute the instruction with or without confirmation */
 		execute_instruction(p_instructions[ current_pc / 4 ], needConfirm, &memory, registers);
 
 		if ( needConfirm )
-		{
+		{	
+			/* 4.5 - We only show the value of registers and memory if we need confirmation */
 			print_processor_to_stream(stdout, &memory, registers);
 		}
 		
@@ -84,9 +93,11 @@ void run_a_file(char *p_pathIn,char *p_pathHexOut,char *p_pathFinOut){
 
 	if ( !needConfirm )
 	{
+		/* We write into the '.state' file only if we don't have confirmation */
 		write_final_file(p_pathFinOut, registers);
 	}
 	
+	/* 5 - Free all variables */
 	free(p_instructions);
 	free_memory(&memory,0);
 	free(registers);
@@ -102,14 +113,15 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 	int PC_increased = 0;
 	char *instructionText = NULL;
 
+	/* 1 - Get oppcode and operands*/
 	get_instruction_values(instruction, &operator, operands);
 
+	/* 2 - Show the current instruction */
 	decompile_instruction(&instructionText, operator, operands);
-
 	printf( "\nExecute : %s ( 0x%.8X )" , instructionText, instruction);
-
 	free(instructionText);
 
+	/* 2.5 - Ask confirmation if needed */
 	if ( needConfirm)
 	{
 		int confirm = 0;
@@ -122,6 +134,7 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 		printf("\n");
 	}
 	
+	/* 3 - Big if for each instruction */
 	if (operator == I_ADD) {
 		temp1 = read_from_register(p_registers, operands[1]);
 		temp2 = read_from_register(p_registers, operands[0]);
@@ -302,6 +315,7 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 
 	}
 
+	/* 4 - We update the PC */
 	if (!PC_increased) {
 		
 		increase_pc(p_registers, 4);
@@ -312,6 +326,9 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 }
 
 void get_instruction_values(int instruction, unsigned int* p_operator, int* p_operands){
+
+
+	/* 1 - Getting the oppcode with all specials and ROTR bit*/
 	unsigned int oppcode = instruction & 0xFC000000;
 	if ( oppcode == 0)
 	{
@@ -324,7 +341,7 @@ void get_instruction_values(int instruction, unsigned int* p_operator, int* p_op
 		oppcode = I_ROTR;
 	}
 
-	
+	/*We are getting all operands (Some will be 0 because not used for each instruction)*/ 
 	if ( oppcode == I_ADD || oppcode == I_AND || oppcode == I_DIV || oppcode == I_JR
 	 || oppcode == I_MFHI || oppcode == I_MFLO || oppcode == I_MULT || oppcode == I_OR
 	 || oppcode == I_SLT || oppcode == I_SUB || oppcode == I_XOR)

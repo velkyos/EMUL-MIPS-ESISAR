@@ -42,6 +42,7 @@ void init_registers(Registers *p_registers){
 	for (int i = 0; i < REGISTER_SIZE; i++)
 	{
 		p_registers->haveModif[i] = 0;
+		p_registers->GPR[i] = 0;
 	}
 	p_registers->haveModif[0] = 1;
 	p_registers->PC = 0;

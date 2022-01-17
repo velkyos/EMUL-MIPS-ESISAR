@@ -17,13 +17,13 @@
 
 	/* Functions prototypes */
 
-	/* Initialize all registers modification status at 0*/
+	/* Initialize all registers modification status and value to 0. */
 	void init_registers(Registers *p_registers);
 
-	/* Write {value} to the register number {registerId} */
+	/* Write {value} to the register number {registerId}. */
 	void write_to_register(Registers *p_registers, int registerId, int value);
 
-	/* Return the value of the register number {registerId} */
+	/* Return the value of the register number {registerId}. */
 	int read_from_register(Registers *p_registers, int registerId);
 
 	/* Increase the program counter by {value}. */
