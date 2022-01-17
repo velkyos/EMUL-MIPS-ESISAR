@@ -1,0 +1,13 @@
+# here is me : a beautiful and little comment
+
+ADDI $t0,$zero,0x0A	  #add 10 in t0 register (address $0x8)
+ADDI $t2,$0,6	      #add 6 in t2 register (address $0xA)
+ADD $t1,$8,$10	    #add register $8 et $10 in $9
+
+ADDI $t7,$zero,                         1
+ADDI $t8,$zero,    2
+
+SLL $t0,$t1,1	 	     #shift left $9 in $8 -> 32
+SRL $t2,$t0,2	      	#shift right $10 in $8 -> 4
+
+ADDI $t5,$t2,-4	      #add 6 and -4 into $0xD (register t5)
