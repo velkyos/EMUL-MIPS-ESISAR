@@ -2,7 +2,7 @@
 title: CS351 Esisar -- MIPS Emulator User Documentation
 subtitle: Step 2, 2021-2022 
 author: Louvrier Adrien, Dreano Sophie, Robert Benjamin
-papersize: a4
+papersize: A4
 geometry: margin=1.5cm
 fontsize: 12pt
 lang: en
