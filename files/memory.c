@@ -6,10 +6,11 @@ void write_to_memory(MemoryBlocks *p_memory, int address, char byte){
 	MemoryBlock *p_last = NULL;
 
 
+
 	/* If the memory is not Empty */
 	if ( p_current != NULL)
 	{
-		while( p_current->p_next != NULL && p_current->address != address){
+		while( p_current->p_next != NULL && p_current->address < address){
 			p_last = p_current;
 			p_current = p_current->p_next;
 		}
@@ -18,30 +19,31 @@ void write_to_memory(MemoryBlocks *p_memory, int address, char byte){
 		if ( p_current->address == address)
 		{
 			p_current->byte = byte;
-		}else{
-			p_last = p_current;
-			p_current = p_current->p_next;
+		}else {
+
+			p_new = malloc(sizeof(MemoryBlock));
+			p_new->address = address;
+			p_new->byte = byte;
+			p_new->p_next = p_current;
+
+			if (p_last != NULL)
+			{
+				p_last->p_next = p_new;
+			}
+			else{
+				*p_memory = p_new;
+			}
+			
 		}
 	}
-
-	/* Insertion of a new block */
-	if(	p_current == NULL){
-
+	else{
 		p_new = malloc(sizeof(MemoryBlock));
 		p_new->address = address;
 		p_new->byte = byte;
 		p_new->p_next = NULL;
-
-		/* At the End */
-		if ( p_last != NULL)
-		{
-			p_last->p_next = p_new;
-		}
-		/* With empty memory*/
-		else{
-			*p_memory = p_new;
-		}
+		*p_memory = p_new;
 	}
+
 }
 
 

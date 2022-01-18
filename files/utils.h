@@ -37,7 +37,7 @@
 	/* Specials constants */
 	#define NBR_INSTRUCTION 26
 	#define BUFFER_SIZE 128
-	#define MAX_OPERATOR_SIZE 5
+	#define MAX_OPERATOR_SIZE 9
 	#define MAX_OPERAND_SIZE 10
 	#define	NO_ERROR 0
 	#define ERROR_OPERATOR 1

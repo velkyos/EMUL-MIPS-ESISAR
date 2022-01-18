@@ -157,27 +157,24 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 
 		if (temp1 == temp2) {
 			increase_pc(p_registers, operands[2] << 2);
+			PC_increased = 1;
 		}
-
-		PC_increased = 1;
 
 	} else if (operator == I_BGTZ) { 
 		temp1 = read_from_register(p_registers, operands[0]);
 
 		if (temp1 > 0) {
 			increase_pc(p_registers, operands[2] << 2);
+			PC_increased = 1;
 		}
-
-		PC_increased = 1;
 
 	} else if (operator == I_BLEZ) { 
 		temp1 = read_from_register(p_registers, operands[0]);
 
 		if (temp1 <= 0) {
 			increase_pc(p_registers, operands[2] << 2);
+			PC_increased = 1;
 		}
-
-		PC_increased = 1;
 
 	} else if (operator == I_BNE) { 
 		temp1 = read_from_register(p_registers, operands[0]);
@@ -185,9 +182,9 @@ void execute_instruction(int instruction,int needConfirm, MemoryBlocks *p_memory
 
 		if (temp1 != temp2) {
 			increase_pc(p_registers, operands[2] << 2);
+			PC_increased = 1;
 		}
-
-		PC_increased = 1;
+		
 
 	} else if (operator == I_DIV) { 
 		temp1 = read_from_register(p_registers, operands[0]);

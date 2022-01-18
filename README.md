@@ -55,4 +55,14 @@ Compile the file **prog_filename** and save the binary file into **output_debug.
 **JR** : We don't look at two leasts significants bits. We only take the multiple of 4.
 
 Before each execution we show the instruction in 'Assembly format', the NOP instruction will not be shown instead the SLL $0, $0, 0 will.
+
+During the phase of compilation, if an instruction is wrong :
+
+	- Operand overflow
+	- Unknown Operator
+	- Unknown Number
+	- Unknown Register
+
+Then the instruction is not compiled and an error is printed on the screen.
+We choose not to compile with an overflow because we think that the overflow is not the purpose of the user.
 </div>

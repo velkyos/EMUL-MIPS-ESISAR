@@ -99,7 +99,7 @@ void print_processor_to_stream(FILE *p_file,MemoryBlocks *p_memory, Registers *p
 
 
 		nextRegister = get_next_modified_register(p_registers, nextRegister);
-		fprintf( p_file, "| %02d | 0x%.8X | %.*d |- -| 0x%.8X |  0x%.2X  |\n", nextRegister, p_registers->GPR[nextRegister], 11, p_registers->GPR[nextRegister], p_current->address, p_current->byte);
+		fprintf( p_file, "| %02d | 0x%-8X | %11d |- -| 0x%-8X |  0x%.2X  |\n", nextRegister, p_registers->GPR[nextRegister], p_registers->GPR[nextRegister], p_current->address, p_current->byte);
 
 		p_current = p_current->p_next;
 		registerAllreadyPrint++;
@@ -119,7 +119,7 @@ void print_processor_to_stream(FILE *p_file,MemoryBlocks *p_memory, Registers *p
 	while ( moreRegisters)
 	{
 		nextRegister = get_next_modified_register(p_registers, nextRegister);
-		fprintf( p_file, "| %02d | 0x%.8X | %*d |- -|", nextRegister, p_registers->GPR[nextRegister], 11, p_registers->GPR[nextRegister]);
+		fprintf( p_file, "| %02d | 0x%-8X | %11d |- -|", nextRegister, p_registers->GPR[nextRegister], p_registers->GPR[nextRegister]);
 
 		/* Print the end of memory */
 		if ( mustPrintOther)
@@ -152,7 +152,7 @@ void print_processor_to_stream(FILE *p_file,MemoryBlocks *p_memory, Registers *p
 			fprintf( p_file, "                                ");
 		}
 		
-		fprintf( p_file, "|- -| 0x%.8X |  0x%.2X  |\n", p_current->address, p_current->byte);
+		fprintf( p_file, "|- -| 0x%-8X |  0x%.2X  |\n", p_current->address, p_current->byte);
 
 		p_current = p_current->p_next;
 		moreData = p_current != NULL;
