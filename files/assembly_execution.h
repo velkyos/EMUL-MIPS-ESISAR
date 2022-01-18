@@ -3,8 +3,8 @@
 
 	#include "assembly_compilation.h"
 
-	/* Run the program in interative mode.*/
-	void run_in_interative();
+	/* Run the program in interactive mode.*/
+	void run_in_interactive();
 
 	/* Compile the file named {p_pathIn} into the file named {p_pathHexOut}, execute it and save the memory and registers into {p_pathFinOut}.
 	* If {p_pathFinOut} is NULL then the program is launch into the step-by-step mode.*/

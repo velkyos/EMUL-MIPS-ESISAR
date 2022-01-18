@@ -26,7 +26,7 @@ $(OBJDIR)/%.o: $(FILEDIR)/%.c
 	$(CC) $(FLAGS) -c -o $@ $^
 
 clean:
-	rm -fr $(OBJDIR)/*.o *~ $(BIN) *.hex *.s *.pdf
+	rm -fr $(OBJDIR)/*.o *~ $(BIN) *.hex *.s $(basename $(SRCDOC)).pdf *.state
 
 doc: $(SRCDOC)
 	pandoc -f markdown -t pdf $(SRCDOC) -o $(basename $(SRCDOC)).pdf

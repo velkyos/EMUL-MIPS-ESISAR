@@ -6,7 +6,7 @@ void execute_instruction(int instruction,int needConfirm ,MemoryBlocks *p_memory
 /* Get oppcode {p_operator} and operands {p_operands} from the instruction {instruction}. */
 void get_instruction_values(int instruction, unsigned int* p_operator, int* p_operands);
 
-void run_in_interative(){
+void run_in_interactive(){
 	int current_pc;
 	Registers *registers = malloc(sizeof(Registers));
 	MemoryBlocks memory = NULL;

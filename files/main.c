@@ -5,7 +5,7 @@ int main(int argc, char *argv[]) {
 	
 	if (argc == 1)
 	{
-		run_in_interative();
+		run_in_interactive();
 	}
 	else if (argc == 2){
 		printf("Parameters are incorrect, please read readme.user.");
